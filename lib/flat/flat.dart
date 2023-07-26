@@ -1,0 +1,1 @@
+export 'view/flat_page.dart';

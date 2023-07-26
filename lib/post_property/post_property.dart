@@ -1,0 +1,1 @@
+export 'view/post_property_page.dart';

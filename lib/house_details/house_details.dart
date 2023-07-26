@@ -1,0 +1,1 @@
+export 'view/house_details_page.dart';

@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:findmyroof1/apartment/view/apartment_page.dart';
 import 'package:findmyroof1/favourites/view/favourites_page.dart';
 import 'package:findmyroof1/flat/view/flat_page.dart';
 import 'package:findmyroof1/house/view/house_page.dart';
+import 'package:findmyroof1/login/login.dart';
 import 'package:findmyroof1/mainhome/view/widgets/nearby_to_you.dart';
 import 'package:findmyroof1/messages/view/messages_page.dart';
 import 'package:findmyroof1/notification/view/notification_page.dart';
@@ -9,6 +11,8 @@ import 'package:findmyroof1/plot/view/plot_page.dart';
 import 'package:findmyroof1/post_property/view/post_property_page.dart';
 import 'package:findmyroof1/profile/view/profile_page.dart';
 import 'package:findmyroof1/search/view/search_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class MainHome extends StatefulWidget {
@@ -19,11 +23,17 @@ class MainHome extends StatefulWidget {
 }
 
 class _MainHomeState extends State<MainHome> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  late CollectionReference _findmyroofRef;
+  late FirebaseStorage _storage;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
+        elevation: 0.5,
         actions: [
           IconButton(
               onPressed: () {
@@ -33,7 +43,10 @@ class _MainHomeState extends State<MainHome> {
                       builder: (context) => Notifications(),
                     ));
               },
-              icon: Icon(Icons.notifications,color: Colors.black,)),
+              icon: Icon(
+                Icons.notifications,
+                color: Colors.black,
+              )),
         ],
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
@@ -182,7 +195,6 @@ class _MainHomeState extends State<MainHome> {
                           ],
                         ),
                       ),
-                      
                     ],
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -190,19 +202,20 @@ class _MainHomeState extends State<MainHome> {
                       crossAxisSpacing: 5,
                     ),
                   ),
-                  SizedBox(height: 15,),
-                  Text(' Nearby To You',style: TextStyle(fontWeight: FontWeight.w600),),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Text(
+                    ' Nearby To You',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                   NearbyToYou()
                 ],
               ),
             ],
           ),
-              
         ),
-        
-        
       ),
-      
       bottomNavigationBar: BottomNavigationBar(
           iconSize: 25,
           backgroundColor: Colors.white,
@@ -279,7 +292,8 @@ class _MainHomeState extends State<MainHome> {
                 label: ''),
           ]),
       floatingActionButton: FloatingActionButton(
-        shape: StadiumBorder(),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15))),
         onPressed: () {
           Navigator.push(
               context,

@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey[50],
         shadowColor: Colors.transparent,
       ),
       body: Column(
@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
                 TextStyle(color: Colors.grey[700], fontWeight: FontWeight.w400),
           ),
           SizedBox(
-            height: 25,
+            height: 35,
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -35,10 +35,12 @@ class _HomePageState extends State<HomePage> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 30,
+                fontSize: 32,
               ),
             ),
           ),
+          SizedBox(height: 5,),
+          
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -50,9 +52,16 @@ class _HomePageState extends State<HomePage> {
                           builder: (context) => LoginPage(),
                         ));
                   },
-                  child: Text('LOG IN'),
+                  child: Text('LOG IN',style: TextStyle(
+                    color: Color.fromARGB(255, 0, 89, 158),
+                  ),),
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xFF7CB9E8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      
+
+                    )
                   )),
               SizedBox(
                 width: 10,
@@ -65,11 +74,15 @@ class _HomePageState extends State<HomePage> {
                           builder: (context) => SignupPage(),
                         ));
                   },
-                  child: Text('SIGN UP'),
+                  child: Text('SIGN UP',style: TextStyle(
+                    color: Color.fromARGB(255, 0, 89, 158),
+                  ),),
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xFF7CB9E8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)
                   )),
-            ],
+           ) ],
           )
         ],
       ),

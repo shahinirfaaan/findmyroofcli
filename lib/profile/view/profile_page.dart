@@ -1,12 +1,16 @@
 import 'package:findmyroof1/edit_profile/view/edit_profile_page.dart';
+import 'package:findmyroof1/login/view/login_page.dart';
 import 'package:findmyroof1/mainhome/view/widgets/drawer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<Profile> createState() {
+    return _ProfileState();
+  }
 }
 
 class _ProfileState extends State<Profile> {
@@ -51,14 +55,37 @@ class _ProfileState extends State<Profile> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfile(),));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditProfile(),
+                  ),
+                );
               },
               child: Text('Edit Your Profile'),
+              style: ButtonStyle(),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                logOut();
+              },
+              child: Text('Logout'),
               style: ButtonStyle(),
             ),
           ],
         ),
       ),
     );
+  }
+
+  void logOut() async {
+    final user = await FirebaseAuth.instance.signOut().then((value) {
+      if (!mounted) return;
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => LoginPage(),
+          ),
+          (route) => false);
+    });
   }
 }
